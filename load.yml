@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-testing
+  labels:
+    app: load-test
+spec:
+  replicas: 50
+  selector:
+    matchLabels:
+      app: load-test
+  template:
+    metadata:
+      labels:
+        app: load-test
+    spec:
+      containers:
+      - name: memory-demo-3-ctr
+        image: polinux/stress
+        command: ["stress"]
+        args: ["--vm", "1", "--vm-bytes", "100M", "--vm-hang", "1"]
